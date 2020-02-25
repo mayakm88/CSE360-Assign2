@@ -1,6 +1,6 @@
 /**Maya Muir
  * Class ID: 202
- * Assignment: 1
+ * Assignment: 2
  */
 
 package cse360assign2;
@@ -24,7 +24,13 @@ public class SimpleList {
 			count = 0;
 		}
 		
-		/**This method adds a new integer to the beginning of the list.
+		public int length() {
+			return list.length;
+		}
+		
+		
+		/**This method adds a new integer to the beginning of the list. If the list is full, it increases
+		 * the size of the list by 50%.
 		 * 
 		 * @param elementToAdd    integer that is added to the list
 		 */
@@ -35,25 +41,26 @@ public class SimpleList {
 			
 			
 			else {
-				if (count == 10) { //if the list is already full
-					count--;	//has to be decremented for 10 elements otherwise list[index+1] will present an error
-					for(int addIndex = count - 1; addIndex >= 0; addIndex--) { 
-						list[addIndex + 1] = list [addIndex];  //moves all of the elements over one to the right
+				if (count == list.length) { //if the list is already full
+					int newSize = ((list.length) * 3) / 2;    //the new size will be 1.5 times as big
+					int listCopy [] = new int [newSize];
+					
+					for (int index = 0; index < list.length; index++) {
+						listCopy[index] = list[index];
 					}
-					list[0] = elementToAdd; 
+					
+					list = listCopy;
 				}
-				
-				else {	
-					for (int addIndex = count - 1; addIndex >= 0; addIndex--) {
+					for (int addIndex = count - 1; addIndex >= 0; addIndex--) { //moving the elements over one
 						list[addIndex + 1] = list [addIndex];
 					}
 					list[0] = elementToAdd;
-				}	
 			}
 			count ++; 
 		}
 		
-		/**This method removes an integer from the list and moves the other integers accordingly.
+		/**This method removes an integer from the list and moves the other integers accordingly. If 25% or more
+		 * of the list is empty, it decreases the list size by 25%.
 		 * 
 		 * @param elementToRemove    integer to be removed
 		 */
@@ -68,6 +75,16 @@ public class SimpleList {
 				
 				list[count - 1] = 0;  //makes the last element in the list 0
 				count--;
+			}
+			
+			int quarterSize = (list.length) / 4;
+			int newSize = (list.length) - quarterSize;
+			if (((list.length) - count) >= quarterSize) {
+				int listCopy [] = new int [newSize];
+				for (int index = 0; index < listCopy.length; index++) {
+					listCopy[index] = list[index];
+				}
+			list = listCopy;
 			}
 		}
 		
@@ -98,7 +115,7 @@ public class SimpleList {
 			return string;
 		}
 		
-		/**This method returns the index of an element
+		/**This method returns the index of an element.
 		 * 
 		 * @param element    the element that is being searched for  
 		 * @return    	         the index of the element being searched for
@@ -113,4 +130,4 @@ public class SimpleList {
 			}
 			return -1;  //if the element is not in the list
 		}
-}
+}	
