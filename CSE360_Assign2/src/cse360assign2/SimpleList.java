@@ -24,10 +24,6 @@ public class SimpleList {
 			count = 0;
 		}
 		
-		public int length() {
-			return list.length;
-		}
-		
 		
 		/**This method adds a new integer to the beginning of the list. If the list is full, it increases
 		 * the size of the list by 50%.
@@ -59,7 +55,7 @@ public class SimpleList {
 			count ++; 
 		}
 		
-		/**This method removes an integer from the list and moves the other integers accordingly. If 25% or more
+		/**This method removes an integer from the list and moves the other integers accordingly. If more than 25%
 		 * of the list is empty, it decreases the list size by 25%.
 		 * 
 		 * @param elementToRemove    integer to be removed
@@ -79,7 +75,7 @@ public class SimpleList {
 			
 			int quarterSize = (list.length) / 4;
 			int newSize = (list.length) - quarterSize;
-			if (((list.length) - count) >= quarterSize) {
+			if (((list.length) - count) > quarterSize) {
 				int listCopy [] = new int [newSize];
 				for (int index = 0; index < listCopy.length; index++) {
 					listCopy[index] = list[index];
@@ -130,4 +126,48 @@ public class SimpleList {
 			}
 			return -1;  //if the element is not in the list
 		}
-}	
+		
+		/**This method adds a new integer to the end of the list. If the list is full, it increases
+		 * the size of the list by 50%.
+		 * 
+		 * @param elementToAppend    integer that is added to the end of the list
+		 */
+		public void append(int elementToAppend) {
+			
+			if (count == 0)  //if the list is empty
+				list[0] = elementToAppend; 
+			
+			
+			else {
+				if (count == list.length) { //if the list is already full
+					int newSize = ((list.length) * 3) / 2;    //the new size will be 1.5 times as big
+					int listCopy [] = new int [newSize];
+					
+					for (int index = 0; index < list.length; index++) {
+						listCopy[index] = list[index];
+					}
+					
+					list = listCopy;
+				}
+				
+					list[count] = elementToAppend;
+			}
+			count ++; 
+		}
+		
+		/**This method returns the first element in the list.
+		 * 
+		 * @return    the first element in the list
+		 */
+		public int first() {
+			return list[0];
+		}
+		
+		/**This method returns the current number of possible locations in the list
+		 * 
+		 * @return    the size of the list
+		 */
+		public int size() {
+			return list.length;
+		}
+}
