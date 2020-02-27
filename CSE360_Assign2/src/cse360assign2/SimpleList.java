@@ -6,9 +6,10 @@
 package cse360assign2;
 
 /**
- * The class SimpleList contains several different methods to create and implement a list. The list is an array of 
+ * The class SimpleList contains several different methods to create and implement a list. The list begins as an array of 
  * 10 elements. By calling the different methods, a user can add elements, remove elements, count the number of elements, 
- * and search for an element. There is also a method to print out all of the elements of the array. 
+ * and search for an element. There is also a method to print out all of the elements of the array. The array can also
+ * change size as needed to become bigger when it is full or smaller when space is not being used.
  * 
  * @author Maya Muir
  */
@@ -72,15 +73,19 @@ public class SimpleList {
 				list[count - 1] = 0;  //makes the last element in the list 0
 				count--;
 			}
-			
+			if (list.length > 1) {
 			int quarterSize = (list.length) / 4;
 			int newSize = (list.length) - quarterSize;
-			if (((list.length) - count) > quarterSize) {
-				int listCopy [] = new int [newSize];
-				for (int index = 0; index < listCopy.length; index++) {
-					listCopy[index] = list[index];
+			
+				if (((list.length) - count) > quarterSize) {	//cannot be reduced to less than 1
+					int listCopy [] = new int [newSize];
+					
+					for (int index = 0; index < listCopy.length; index++) {
+						listCopy[index] = list[index];
+					}
+					
+					list = listCopy;
 				}
-			list = listCopy;
 			}
 		}
 		
@@ -160,14 +165,28 @@ public class SimpleList {
 		 * @return    the first element in the list
 		 */
 		public int first() {
+			if (count == 0) {
+				return -1;
+			}
 			return list[0];
 		}
 		
-		/**This method returns the current number of possible locations in the list
+		/**This method returns the last element in the list.
+		 * 
+		 * @return    the last element in the list
+		 */
+		public int last() {
+			if(count == 0) {
+				return -1;
+			}
+			return list[count-1];
+		}
+		
+		/**This method returns the current number of possible locations in the list.
 		 * 
 		 * @return    the size of the list
 		 */
 		public int size() {
 			return list.length;
 		}
-}
+	}
